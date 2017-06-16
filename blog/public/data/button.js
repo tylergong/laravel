@@ -1,0 +1,16 @@
+var Button = {
+    'one_push': "<button class='btn btn-xs changePush'>PUSH</button>",
+    'two_push': "<button class='btn btn-xs changePush'>再次PUSH</button>",
+    'no_push': "<button class='btn btn-xs disabled'>无法PUSH</button>",
+    'overdue': "<button class='btn btn-xs btn-danger disabled'>过期</button>",
+    'released': "<button class='btn btn-xs btn-success changeStatus'>已发布</button>",
+    'pending': "<button class='btn btn-xs btn-warning changeStatus'>待发布</button>",
+    'normal': "<button class='btn btn-xs btn-success changeStop'>正常</button>",
+    'stop': "<button class='btn btn-xs btn-danger disabled'>已终止</button>",
+    'show': "<button class='btn btn-xs btn-success changeListShow'>show</button>",
+    'no_show': "<button class='btn btn-xs changeListShow'>no</button>",
+    'up': "<a class='glyphicon glyphicon-arrow-up changeOrderByUp' title='上移'></a>",
+    'down': "<a class='glyphicon glyphicon-arrow-down changeOrderByDown' title='下移'></a>",
+    'edit_act': "<a class='glyphicon glyphicon-edit editAct' title='编辑活动'></a>",
+    'export_order': "<a class='glyphicon glyphicon-cloud-download downloadOrder' title='导出订单'></a>",
+}
