@@ -53,10 +53,10 @@ return [
 
 		'db_fensi' => [
 			'driver' => 'mysql',
-			'host' => '192.168.10.136',
+			'host' => '127.0.0.1',
 			'database' => 'db_fensi',
-			'username' => 'tyler.gong',
-			'password' => 'tyler.gong!@#',
+			'username' => 'root',
+			'password' => '111111',
 			'charset' => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix' => '',
@@ -64,6 +64,18 @@ return [
 			'port' => 3306,
 		],
 
+		'db_91lsme' => [
+			'driver' => 'mysql',
+			'host' => '127.0.0.1',
+			'database' => 'qdm114542290_db',
+			'username' => 'root',
+			'password' => '111111',
+			'charset' => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix' => '',
+			'strict' => false,
+			'port' => 3306,
+		],
 
 	],
 

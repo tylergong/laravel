@@ -11,17 +11,19 @@
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::post('/file/upload', 'UploadsController@uploadFile');
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')
-	 ->name('home');
-
 // 前台需要验证登录的请求
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::resource('/home', 'HomeController');
+
 	Route::resource('/vueTable', 'Tables\VueTablesController');
 
 	Route::resource('/dataTable', 'Tables\DataTablesController');
@@ -35,21 +37,37 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 
-// 后台登录 退出
-Route::group(['prefix' => 'admin',
-			  'namespace' => 'Admin'], function($router) {
-	$router->get('login', 'LoginController@showLoginForm')
-		   ->name('admin.login');
-	$router->post('login', 'LoginController@login');
-	$router->post('logout', 'LoginController@logout')
-		   ->name('admin.logout');
+// 后台登录 退出(prefix  匹配包含 "/admin/login" 的 URL  ; namespace  在 "App\Http\Controllers\Admin" 命名空间下的控制器)
+Route::group([
+	'prefix' => 'admin',
+	'namespace' => 'Admin'
+], function () {
+	Route::get('login', 'LoginController@showLoginForm')
+		->name('admin.login');
+	Route::post('login', 'LoginController@login');
+	Route::post('logout', 'LoginController@logout')
+		->name('admin.logout');
 
-	$router->get('/', 'DashboardController@index');
-	$router->get('dash', 'DashboardController@index');
+	Route::get('/', 'DashboardController@index');
+	Route::get('dash', 'DashboardController@index');
+
+	// 后台需要验证登录的请求
+	Route::group(['middleware' => 'auth:admin'], function () {
+
+		Route::resource('channel', 'ChannelController');
+
+		Route::get('article/getDetail', 'ArticleController@getDetail');
+		Route::resource('article', 'ArticleController');
+
+		Route::resource('articleRecycle', 'ArticleRecycleController');
+
+		Route::resource('ad', 'AdvertisementController');
+
+		Route::put('fl/setSort', 'FriendLinkController@setSort');
+		Route::resource('fl', 'FriendLinkController');
+
+		Route::resource('static', 'StaticController');
+
+	});
 });
 
-//// 后台需要验证登录的请求
-Route::group(['middleware' => 'auth:admin'], function() {
-
-	Route::resource('admin/dataTable2', 'Admin\DataTables2Controller');
-});

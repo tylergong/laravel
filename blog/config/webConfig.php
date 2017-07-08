@@ -1,6 +1,8 @@
 <?php
 return [
-	'SITES_TITLE' => '这是一个很NB的网站管理平台',
-	'ADMIN_TITLE' => '网站管理平台',
+	'SITES_TITLE' => '就要听我说——91lsme',
+	'ADMIN_TITLE' => '91lsme后台管理',
 	'PAGE_SIZE'=>10,
+	'IMG_DOMAIN'=>'http://www.91lsme.com/',
+	'WEB_DOMAIN'=>'http://www.91lsme.com/',
 ];

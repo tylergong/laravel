@@ -85,7 +85,7 @@
                     url: "{{asset('data/Chinese.txt')}}"
                 },
                 searching: true,
-                ajax: '/dataTable2',
+                ajax: '/dataTableService',
                 deferRender: true,
                 processing: true,
                 serverSide: true,

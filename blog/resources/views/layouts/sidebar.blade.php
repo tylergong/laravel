@@ -24,9 +24,6 @@
             <a href="{{ url('/dataTableService') }}"><i class="fa fa-table fa-fw"></i> 活动列表 DataTableService</a>
         </li>
         <li>
-            <a href="{{ url('/admin/dataTable2') }}"><i class="fa fa-table fa-fw"></i> 活动列表 admin DataTables</a>
-        </li>
-        <li>
             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                 <li>
