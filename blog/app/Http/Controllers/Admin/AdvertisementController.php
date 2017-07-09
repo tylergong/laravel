@@ -46,10 +46,8 @@ class AdvertisementController extends Controller {
 	// POST
 	// /admin/ad
 	public function store(Request $request) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail['title'] = $request->input('title', '');
 		$detail['is_link'] = $request->input('is_link', 0);
@@ -68,12 +66,13 @@ class AdvertisementController extends Controller {
 
 		$res = AdModel::create($detail);
 		if($res->id > 0) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 编辑(显示表单)
@@ -89,10 +88,8 @@ class AdvertisementController extends Controller {
 	// PUT\PATCH
 	// /admin/ad/{id}
 	public function update(Request $request, $id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail = AdModel::find($id);
 		$detail->title = $request->input('title', '');
@@ -111,31 +108,31 @@ class AdvertisementController extends Controller {
 
 		$res = $detail->save();
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 删除数据
 	// DELETE
 	// /admin/ad/{id}
 	public function destroy($id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$res = AdModel::destroy($id);
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 显示数据

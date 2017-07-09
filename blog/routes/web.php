@@ -37,7 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-// 后台登录 退出(prefix  匹配包含 "/admin/login" 的 URL  ; namespace  在 "App\Http\Controllers\Admin" 命名空间下的控制器)
+// 后台登录 退出 及其各项操作
+//	[	prefix  前缀匹配包含 "/admin/login" 的 URL  ;
+// 		namespace  在 "App\Http\Controllers\Admin" 命名空间下的控制器	]
 Route::group([
 	'prefix' => 'admin',
 	'namespace' => 'Admin'
@@ -67,6 +69,10 @@ Route::group([
 		Route::resource('fl', 'FriendLinkController');
 
 		Route::resource('static', 'StaticController');
+
+		Route::get('profile/reset/{id}', 'ProFileController@showResetPassport');
+		Route::post('profile/reset/{id}', 'ProFileController@resetPassport');
+		Route::resource('profile', 'ProFileController');
 
 	});
 });

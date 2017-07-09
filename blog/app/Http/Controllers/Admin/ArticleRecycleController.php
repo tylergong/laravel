@@ -33,20 +33,19 @@ class ArticleRecycleController extends Controller {
 	// DELETE
 	// /admin/articleRecycle/{id}
 	public function destroy($id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 		$detail = ArticleModel::find($id);
 		$detail->is_del = 0;
 		$detail->up_time = date('Y-m-d H:i:s', time());
 		$res = $detail->save();
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 }

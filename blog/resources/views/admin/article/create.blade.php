@@ -139,7 +139,7 @@
                         beforeSend: function () {
                         },
                         success: function (data) {
-                            if (data.code == 1) {
+                            if (data.code == 0) {
                                 _this.detail = data.data;
                                 // 给富文本显示区赋值
                                 editor.txt.html(_this.detail.content);
@@ -161,9 +161,22 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
-                                    //swal(data.msg);
-                                    window.location.href = '/admin/article'
+                                if (data.code == 0) {
+                                    swal({
+                                                title: "文章添加成功",
+                                                text: "请点击下面确认按钮,退回至文章列表页面!",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "返回列表",
+                                                closeOnConfirm: false,
+                                                closeOnCancel: false
+                                            },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+                                                    window.location.href = '/admin/article'
+                                                }
+                                            });
                                 } else {
                                     swal(data.msg);
                                 }
@@ -183,7 +196,7 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
+                                if (data.code == 0) {
                                     swal(data.msg);
                                 }
                             },

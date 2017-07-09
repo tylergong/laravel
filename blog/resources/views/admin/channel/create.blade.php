@@ -60,7 +60,6 @@
 
 @section('script')
     <script src="{{asset('assets/vue/vue.min.js')}}"></script>
-    <script src="{{asset('assets/vue/axios.min.js')}}"></script>
     <script>
         new Vue({
             el: '#page-wrapper',
@@ -86,9 +85,22 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
-                                    //swal(data.msg);
-                                    window.location.href = '/admin/channel'
+                                if (data.code == 0) {
+                                    swal({
+                                                title: "频道添加成功",
+                                                text: "请点击下面确认按钮,退回至频道列表页面!",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "返回列表",
+                                                closeOnConfirm: false,
+                                                closeOnCancel: false
+                                            },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+                                                    window.location.href = '/admin/channel'
+                                                }
+                                            });
                                 } else {
                                     swal(data.msg);
                                 }
@@ -108,7 +120,7 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
+                                if (data.code == 0) {
                                     swal(data.msg);
                                 }
                             },

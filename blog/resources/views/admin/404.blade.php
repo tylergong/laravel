@@ -45,16 +45,16 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">主页</h1>
+            <h1 class="page-header">权限错误</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">欢迎词</div>
+
 
                 <div class="panel-body">
-                    欢迎您! {{ auth('admin')->user()->name }}
+                    对不起 ! 您暂时无权查看此页 .
                 </div>
             </div>
         </div>

@@ -44,10 +44,8 @@ class FriendLinkController extends Controller {
 	// POST
 	// /admin/ad
 	public function store(Request $request) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail['fname'] = $request->input('fname', '');
 		$detail['flink'] = $request->input('flink', '');
@@ -57,15 +55,15 @@ class FriendLinkController extends Controller {
 
 		if($res->id > 0) {
 			// 更新排序
-			$detail['orderby'] = $res->id;
-			$detail->save();
-
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			FriendLinksModel::where('id', $res->id)
+				->update(['orderby' => $res->id]);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 编辑(显示表单)
@@ -81,10 +79,8 @@ class FriendLinkController extends Controller {
 	// PUT\PATCH
 	// /admin/ad/{id}
 	public function update(Request $request, $id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail = FriendLinksModel::find($id);
 		$detail->fname = $request->input('fname', '');
@@ -93,31 +89,31 @@ class FriendLinkController extends Controller {
 		$res = $detail->save();
 
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 删除数据
 	// DELETE
 	// /admin/ad/{id}
 	public function destroy($id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$res = FriendLinksModel::destroy($id);
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 显示数据
@@ -129,10 +125,8 @@ class FriendLinkController extends Controller {
 
 	// 移动显示顺序
 	public function setSort(Request $request) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$id = $request->input('id', '');
 		$opt = $request->input('opt', '');
@@ -154,11 +148,12 @@ class FriendLinkController extends Controller {
 			$detail->save();
 			$ex_detail->save();
 
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 }

@@ -67,7 +67,6 @@
     <script src="{{asset('assets/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/datatables/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/jquery/jquery.highlight.js')}}"></script>
-    <script src="{{asset('data/button.js')}}"></script>
     <script>
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
@@ -165,7 +164,7 @@
                                 url: "/admin/articleRecycle/" + row.data().id,
                                 dataType: "json",
                                 success: function (response) {
-                                    if (response) {
+                                    if (response.code == 0) {
                                         swal("Good job!", "恢复成功了", "success");
                                         row.remove();
                                         table.draw(false);

@@ -5,43 +5,41 @@
 @section('adminTitle', @config('webConfig.ADMIN_TITLE'))
 
 @section('navbar')
-@include('admin.layouts.navbar')
+    @include('admin.layouts.navbar')
 @endsection
 
 @section('sidebar')
-@include('admin.layouts.sidebar')
+    @include('admin.layouts.sidebar')
 @endsection
 
 
 @section('style')
-        <!-- DataTables CSS -->
-<link href="{{asset('assets/datatables/css/dataTables.bootstrap.css')}}" rel="stylesheet">
-<!-- Custom Theme JavaScript -->
-<link href="{{asset('assets/sb-admin-2/css/sb-admin-2.min.css')}}" rel="stylesheet">
-<style>
-    td.details-control {
-        background: url({{asset('assets/datatables/images/details_open.png')}}) no-repeat center center;
-        cursor: pointer;
-    }
+    <link href="{{asset('assets/datatables/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/sb-admin-2/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <style>
+        td.details-control {
+            background: url({{asset('assets/datatables/images/details_open.png')}}) no-repeat center center;
+            cursor: pointer;
+        }
 
-    tr.shown td.details-control {
-        background: url({{asset('assets/datatables/images/details_close.png')}}) no-repeat center center;
-    }
+        tr.shown td.details-control {
+            background: url({{asset('assets/datatables/images/details_close.png')}}) no-repeat center center;
+        }
 
-    a {
-        cursor: pointer;
-    }
+        a {
+            cursor: pointer;
+        }
 
-    table.dataTable span.highlight {
-        background-color: #FFFF88;
-        border-radius: 0.28571429rem;
-    }
+        table.dataTable span.highlight {
+            background-color: #FFFF88;
+            border-radius: 0.28571429rem;
+        }
 
-    table.dataTable span.column_highlight {
-        background-color: #ffcc99;
-        border-radius: 0.28571429rem;
-    }
-</style>
+        table.dataTable span.column_highlight {
+            background-color: #ffcc99;
+            border-radius: 0.28571429rem;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -71,15 +69,13 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-    @endsection
+@endsection
 
-    @section('script')
-            <!-- DataTables JavaScript -->
+@section('script')
     <script src="{{asset('assets/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/datatables/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/jquery/jquery.highlight.js')}}"></script>
     <script src="{{asset('data/button.js')}}"></script>
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function () {
             var table = $('#dataTables-example').DataTable({
@@ -172,7 +168,7 @@
                                 url: "/admin/fl/" + row.data().id,
                                 dataType: "json",
                                 success: function (response) {
-                                    if (response) {
+                                    if (response.code == 0) {
                                         swal("Good job!", "删除成功了", "success");
                                         row.remove();
                                         table.draw(false);
@@ -196,7 +192,7 @@
                     dataType: "json",
                     data: {'id': row.data().id, 'opt': 'up'},
                     success: function (response) {
-                        if (response.code) {
+                        if (response.code == 0) {
                             table.clear();
                             data.splice((index - 1), 0, data.splice(index, 1)[0]);
                             table.rows.add(data);
@@ -220,7 +216,7 @@
                     dataType: "json",
                     data: {'id': row.data().id, 'opt': 'down'},
                     success: function (response) {
-                        if (response.code) {
+                        if (response.code == 0) {
                             table.clear();
                             data.splice((index + 1), 0, data.splice(index, 1)[0]);
                             table.rows.add(data);
@@ -231,8 +227,6 @@
                     },
                 });
             });
-
-
         });
     </script>
 @endsection

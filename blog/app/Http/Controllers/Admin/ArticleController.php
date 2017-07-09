@@ -50,10 +50,8 @@ class ArticleController extends Controller {
 	// POST
 	// /admin/article
 	public function store(Request $request) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail['title'] = $request->input('title', '');
 		$detail['cid'] = $request->input('cid', 1);
@@ -69,12 +67,13 @@ class ArticleController extends Controller {
 
 		$res = ArticleModel::create($detail);
 		if($res->id > 0) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 编辑(显示表单)
@@ -93,10 +92,8 @@ class ArticleController extends Controller {
 	// PUT\PATCH
 	// /admin/article/{id}
 	public function update(Request $request, $id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
 
 		$detail = ArticleModel::find($id);
 		$detail->title = $request->input('title', '');
@@ -112,34 +109,35 @@ class ArticleController extends Controller {
 
 		$res = $detail->save();
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 删除数据(逻辑删除)
 	// DELETE
 	// /admin/article/{id}
 	public function destroy($id) {
-		$rtn = array(
-			'code' => 0,
-			'msg' => 'error'
-		);
+		$code = -1;
+		$msg = 'error';
+
 		$detail = ArticleModel::find($id);
 		$detail->is_del = 1;
 		$detail->is_show = 0;
 		$detail->up_time = date('Y-m-d H:i:s', time());
 		$res = $detail->save();
 		if($res) {
-			$rtn = array(
-				'code' => 1,
-				'msg' => 'ok'
-			);
+			$code = 0;
+			$msg = 'ok';
 		}
-		die(json_encode($rtn));
+		die(json_encode(array(
+			'code' => $code,
+			'msg' => $msg
+		)));
 	}
 
 	// 显示数据
@@ -158,12 +156,12 @@ class ArticleController extends Controller {
 			$detail = ArticleModel::find($id)
 				->toArray();
 			die(json_encode(array(
-				'code' => 1,
+				'code' => 0,
 				'data' => $detail
 			)));
 		}
 		die(json_encode(array(
-			'code' => 0,
+			'code' => -1,
 		)));
 	}
 }

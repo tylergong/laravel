@@ -112,9 +112,22 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
-                                    //swal(data.msg);
-                                    window.location.href = '/admin/ad'
+                                if (data.code == 0) {
+                                    swal({
+                                                title: "广告添加成功",
+                                                text: "请点击下面确认按钮,退回至广告列表页面!",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "返回列表",
+                                                closeOnConfirm: false,
+                                                closeOnCancel: false
+                                            },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+                                                    window.location.href = '/admin/ad'
+                                                }
+                                            });
                                 } else {
                                     swal(data.msg);
                                 }
@@ -134,7 +147,7 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if (data.code == 1) {
+                                if (data.code == 0) {
                                     swal(data.msg);
                                 }
                             },
