@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
 			//--------------
 			switch ($guard) {
 				case 'admin':
-					return redirect('admin/dash');
+					return redirect('/admin');
 				break;
 
 				default:

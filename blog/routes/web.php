@@ -11,27 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::get('/', 'Web\HomeController@index');
+Route::get('/channel/getLists', 'Web\HomeController@getLists');
+Route::post('/channel/postLists', 'Web\HomeController@postLists');
+Route::get('/channel/{id}', 'Web\HomeController@channel');
+Route::get('/detail/{id}', 'Web\HomeController@detail');
+Route::get('/getHotList', 'Web\HomeController@hotList');
+Route::get('/search', 'Web\HomeController@search');
+
 
 Route::post('/file/upload', 'UploadsController@uploadFile');
+
 
 Auth::routes();
 
 // 前台需要验证登录的请求
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::resource('/home', 'HomeController');
+	//Route::resource('/home', 'HomeController');
 
 	Route::resource('/vueTable', 'Tables\VueTablesController');
 
-	Route::resource('/dataTable', 'Tables\DataTablesController');
 	Route::post('/dataTable/setStatus', 'Tables\DataTablesController@setStatus');
 	Route::post('/dataTable/setPushNum', 'Tables\DataTablesController@setPushNum');
 	Route::post('/dataTable/setStop', 'Tables\DataTablesController@setStop');
 	Route::post('/dataTable/setShowList', 'Tables\DataTablesController@setShowList');
 	Route::post('/dataTable/setOrderBy', 'Tables\DataTablesController@setOrderBy');
+	Route::resource('/dataTable', 'Tables\DataTablesController');
 
 	Route::resource('/dataTableService', 'Tables\DataTableServiceController');
 });
@@ -44,14 +50,15 @@ Route::group([
 	'prefix' => 'admin',
 	'namespace' => 'Admin'
 ], function () {
+	// 后台首页
+	Route::get('/', 'DashboardController@index');
+
+	// 后台登录\退出
 	Route::get('login', 'LoginController@showLoginForm')
 		->name('admin.login');
 	Route::post('login', 'LoginController@login');
 	Route::post('logout', 'LoginController@logout')
 		->name('admin.logout');
-
-	Route::get('/', 'DashboardController@index');
-	Route::get('dash', 'DashboardController@index');
 
 	// 后台需要验证登录的请求
 	Route::group(['middleware' => 'auth:admin'], function () {
@@ -68,6 +75,9 @@ Route::group([
 		Route::put('fl/setSort', 'FriendLinkController@setSort');
 		Route::resource('fl', 'FriendLinkController');
 
+		Route::get('static/upHome', 'StaticController@upHome');
+		Route::get('static/upChannel', 'StaticController@upChannel');
+		Route::get('static/upArticle', 'StaticController@upArticle');
 		Route::resource('static', 'StaticController');
 
 		Route::get('profile/reset/{id}', 'ProFileController@showResetPassport');

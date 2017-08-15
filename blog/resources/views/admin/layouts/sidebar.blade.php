@@ -29,7 +29,9 @@
         <li>
             <a href="{{ url('/admin/fl') }}"><i class="fa fa-link fa-fw"></i> 友情链接管理</a>
         </li>
-
+        <li>
+            <a href="{{ url('/admin/static') }}"><i class="fa fa-hdd-o fa-fw"></i> 静态化管理</a>
+        </li>
         {{--<li>--}}
             {{--<a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span--}}
                         {{--class="fa arrow"></span></a>--}}

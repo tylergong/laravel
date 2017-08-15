@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ChannelModel;
+use App\Models\ArticleModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Pagination\Paginator;
 
 class StaticController extends Controller {
 
@@ -13,12 +13,22 @@ class StaticController extends Controller {
 		$this->middleware('auth.admin:admin');
 	}
 
+	// 列表页面(默认显示页)
+	// GET
+	// /admin/ad
 	public function index(Request $request) {
-		if($request->ajax()) {
-			$list['data'] = ChannelModel::get()->toArray();
-			die(json_encode($list));
-		} else {
-			return view('admin.channel.list');
-		}
+		return view('admin.static');
+	}
+
+	public function upHome() {
+
+	}
+
+	public function upChannel() {
+
+	}
+
+	public function upArticle() {
+
 	}
 }

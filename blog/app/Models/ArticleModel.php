@@ -16,7 +16,8 @@ class ArticleModel extends DB91lsme {
 	protected $appends = [
 		'is_show_text',
 		'is_link_text',
-		'c_name'
+		'c_name',
+		'content_limit',
 	];
 	public $fillable = [
 		'title',
@@ -61,6 +62,35 @@ class ArticleModel extends DB91lsme {
 	public function getCNameAttribute() {
 		if(isset($this->attributes['cid'])) {
 			return ChannelModel::find($this->attributes['cid'])->cname;
+		} else {
+			return '';
+		}
+	}
+
+	public function getContentAttribute() {
+		if(isset($this->attributes['content'])) {
+			return stripcslashes($this->attributes['content']);
+		}
+	}
+
+	public function getContentLimitAttribute() {
+		if(isset($this->attributes['content'])) {
+			$tmp = preg_replace(array(
+				'/<img(.*?)>/',
+				'/<(.*?)>/',
+				'/<\/(.*?)>/',
+				'/<br \/>/',
+				'/&nbsp;/',
+				'/&lt;(.*?)&gt;/',
+			), array(
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+			), $this->attributes['content']);
+			return str_limit($tmp, $limit = 300, $end = '...');
 		} else {
 			return '';
 		}
